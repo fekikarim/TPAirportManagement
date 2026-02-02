@@ -1,4 +1,5 @@
-﻿﻿using AM.ApplicationCore.Domain;
+﻿﻿﻿using AM.ApplicationCore.Domain;
+using AM.ApplicationCore.Services;
 
 Plane plane1 = new Plane();
 plane1.PlaneId = 1;
@@ -23,14 +24,15 @@ Console.WriteLine(plane1);
 Console.WriteLine(plane2);
 Console.WriteLine(plane3);
 
-Console.WriteLine("\n--- PassengerType() polymorphism ---");
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- PassengerType() ---");
 
 Passenger p = new Passenger
 {
 	Id = 10,
 	FirstName = "Karim",
 	LastName = "Feki",
-	EmailAddress = "karim.feki@example.com",
+	EmailAddress = "karim@feki.com",
 	BirthDate = new DateTime(2000, 1, 1),
 	PassportNumber = "TN123456",
 	TelNumber = 12345678
@@ -41,7 +43,7 @@ Staff s = new Staff
 	Id = 11,
 	FirstName = "Sami",
 	LastName = "Ben Ali",
-	EmailAddress = "sami.staff@example.com",
+	EmailAddress = "sami@benali.com",
 	BirthDate = new DateTime(1995, 5, 5),
 	PassportNumber = "TN654321",
 	TelNumber = 87654321,
@@ -55,7 +57,7 @@ Traveller t = new Traveller
 	Id = 12,
 	FirstName = "Meriem",
 	LastName = "Trabelsi",
-	EmailAddress = "meriem.traveller@example.com",
+	EmailAddress = "meriem@traveller.com",
 	BirthDate = new DateTime(2001, 3, 3),
 	PassportNumber = "TN777777",
 	TelNumber = 22223333,
@@ -67,13 +69,37 @@ Console.WriteLine(p.PassengerType());
 Console.WriteLine(s.PassengerType());
 Console.WriteLine(t.PassengerType());
 
-Console.WriteLine("\n--- CheckProfile() overloads ---");
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- CheckProfile() ---");
 Console.WriteLine(p.CheckProfile("Feki", "Karim"));
-Console.WriteLine(p.CheckProfile("Feki", "Karim", "karim.feki@example.com"));
+Console.WriteLine(p.CheckProfile("Feki", "Karim", "karim@feki.com"));
 Console.WriteLine(p.CheckProfile("Feki", "Karim", "wrong@mail.com"));
 
-//////////////////////////////////
-/// to do polymorphism
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- TestData + FlightMethods ---");
+FlightMethods flightService = new FlightMethods();
+flightService.Flights = TestData.listFlights;
+Console.WriteLine($"Flights loaded: {flightService.Flights.Count}");
 
-//////////////////////////////////
-/// 
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- GetFlightDates() ---");
+foreach (DateTime d in flightService.GetFlightDates("Paris"))
+{
+	Console.WriteLine(d);
+}
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- GetFlightDates() ---");
+foreach (DateTime d in flightService.GetFlightDatesForeach("Paris"))
+{
+	Console.WriteLine(d);
+}
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- GetFlights() ---");
+flightService.GetFlights("Destination", "Paris");
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- GetFlights() ---");
+flightService.GetFlights("EstimatedDuration", "110");
+
