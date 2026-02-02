@@ -22,3 +22,58 @@ Plane plane3 = new Plane
 Console.WriteLine(plane1);
 Console.WriteLine(plane2);
 Console.WriteLine(plane3);
+
+Console.WriteLine("\n--- PassengerType() polymorphism ---");
+
+Passenger p = new Passenger
+{
+	Id = 10,
+	FirstName = "Karim",
+	LastName = "Feki",
+	EmailAddress = "karim.feki@example.com",
+	BirthDate = new DateTime(2000, 1, 1),
+	PassportNumber = "TN123456",
+	TelNumber = 12345678
+};
+
+Staff s = new Staff
+{
+	Id = 11,
+	FirstName = "Sami",
+	LastName = "Ben Ali",
+	EmailAddress = "sami.staff@example.com",
+	BirthDate = new DateTime(1995, 5, 5),
+	PassportNumber = "TN654321",
+	TelNumber = 87654321,
+	EmploymentDate = new DateTime(2022, 9, 1),
+	Function = "Pilot",
+	Salary = 5000
+};
+
+Traveller t = new Traveller
+{
+	Id = 12,
+	FirstName = "Meriem",
+	LastName = "Trabelsi",
+	EmailAddress = "meriem.traveller@example.com",
+	BirthDate = new DateTime(2001, 3, 3),
+	PassportNumber = "TN777777",
+	TelNumber = 22223333,
+	Nationality = "Tunisian",
+	HealthInformation = "None"
+};
+
+Console.WriteLine(p.PassengerType());
+Console.WriteLine(s.PassengerType());
+Console.WriteLine(t.PassengerType());
+
+Console.WriteLine("\n--- CheckProfile() overloads ---");
+Console.WriteLine(p.CheckProfile("Feki", "Karim"));
+Console.WriteLine(p.CheckProfile("Feki", "Karim", "karim.feki@example.com"));
+Console.WriteLine(p.CheckProfile("Feki", "Karim", "wrong@mail.com"));
+
+//////////////////////////////////
+/// to do polymorphism
+
+//////////////////////////////////
+/// 

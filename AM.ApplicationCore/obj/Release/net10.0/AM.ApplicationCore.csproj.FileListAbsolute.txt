@@ -9,3 +9,4 @@
 /Users/karimfeki/Documents/esprit/4sim1/S02/c#/AM.ApplicationCore/obj/Release/net10.0/refint/AM.ApplicationCore.dll
 /Users/karimfeki/Documents/esprit/4sim1/S02/c#/AM.ApplicationCore/obj/Release/net10.0/AM.ApplicationCore.pdb
 /Users/karimfeki/Documents/esprit/4sim1/S02/c#/AM.ApplicationCore/obj/Release/net10.0/ref/AM.ApplicationCore.dll
+/Users/karimfeki/Documents/esprit/4sim1/S02/c#/AM.ApplicationCore/obj/Release/net10.0/AM.ApplicationCore.sourcelink.json
