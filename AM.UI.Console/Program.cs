@@ -32,7 +32,7 @@ Passenger p = new Passenger
 	Id = 10,
 	FirstName = "Karim",
 	LastName = "Feki",
-	EmailAddress = "karim@feki.com",
+	EmailAddress = "karim@example.com",
 	BirthDate = new DateTime(2000, 1, 1),
 	PassportNumber = "TN123456",
 	TelNumber = 12345678
@@ -43,7 +43,7 @@ Staff s = new Staff
 	Id = 11,
 	FirstName = "Sami",
 	LastName = "Ben Ali",
-	EmailAddress = "sami@benali.com",
+	EmailAddress = "sami@example.com",
 	BirthDate = new DateTime(1995, 5, 5),
 	PassportNumber = "TN654321",
 	TelNumber = 87654321,
@@ -57,7 +57,7 @@ Traveller t = new Traveller
 	Id = 12,
 	FirstName = "Meriem",
 	LastName = "Trabelsi",
-	EmailAddress = "meriem@traveller.com",
+	EmailAddress = "meriem@example.com",
 	BirthDate = new DateTime(2001, 3, 3),
 	PassportNumber = "TN777777",
 	TelNumber = 22223333,
@@ -72,8 +72,8 @@ Console.WriteLine(t.PassengerType());
 Console.WriteLine("\n######################################");
 Console.WriteLine("\n--- CheckProfile() ---");
 Console.WriteLine(p.CheckProfile("Feki", "Karim"));
-Console.WriteLine(p.CheckProfile("Feki", "Karim", "karim@feki.com"));
-Console.WriteLine(p.CheckProfile("Feki", "Karim", "wrong@mail.com"));
+Console.WriteLine(p.CheckProfile("Feki", "Karim", "karim@example.com"));
+Console.WriteLine(p.CheckProfile("Feki", "Karim", "wrong@example.com"));
 
 Console.WriteLine("\n######################################");
 Console.WriteLine("\n--- TestData + FlightMethods ---");
