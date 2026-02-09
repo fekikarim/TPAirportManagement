@@ -82,7 +82,13 @@ public class FlightMethods : IFlightMethods
     public int ProgrammedFlightNumber(DateTime startDate)
     {
         var query = from f in Flights
-                    where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
+                    // METHODE 1
+                    // where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
+
+                    // METHODE 2
+                    where DateTime.Compare(f.FlightDate, startDate) >= 0 
+                    && (f.FlightDate - startDate.AddDays(7)).TotalDays < 7
+                    
                     select f;
 
         return query.Count();
