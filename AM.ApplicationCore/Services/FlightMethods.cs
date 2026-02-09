@@ -81,70 +81,85 @@ public class FlightMethods : IFlightMethods
 
     public int ProgrammedFlightNumber(DateTime startDate)
     {
-        var query = from f in Flights
-                    // METHODE 1
-                    // where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
+        // var query = from f in Flights
+        //             where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
+        //             select f;
+        // return query.Count();
+        //**************************
 
-                    // METHODE 2
-                    where DateTime.Compare(f.FlightDate, startDate) >= 0 
-                    && (f.FlightDate - startDate.AddDays(7)).TotalDays < 7
-                    
-                    select f;
-
-        return query.Count();
+        return Flights.Count(f => f.FlightDate >= startDate 
+        && f.FlightDate < startDate.AddDays(7));
     }
 
     public double DurationAverage(string destination)
     {
-        var query = from f in Flights
-                    where string.Equals(f.Destination, destination, StringComparison.OrdinalIgnoreCase)
-                    select f.EstimatedDuration;
+        // var query = from f in Flights
+        //             where string.Equals(f.Destination, destination, StringComparison.OrdinalIgnoreCase)
+        //             select f.EstimatedDuration;
+        // return query.DefaultIfEmpty(0).Average();
+        //**************************
 
-        return query.DefaultIfEmpty(0).Average();
+        return Flights
+            .Where(f => string.Equals(f.Destination, destination, StringComparison.OrdinalIgnoreCase))
+            .Select(f => f.EstimatedDuration)
+            .DefaultIfEmpty(0)
+            .Average();
     }
 
     public IEnumerable<Flight> OrderedDurationFlights()
     {
-        var query = from f in Flights
-                    orderby f.EstimatedDuration descending
-                    select f;
+        // var query = from f in Flights
+        //             orderby f.EstimatedDuration descending
+        //             select f;
+        // return query;
+        //**************************
 
-        return query;
+        return Flights.OrderByDescending(f => f.EstimatedDuration);
     }
 
     public List<Traveller> SeniorTravellers(Flight flight)
     {
-        // METHODE 1
-        // return flight.Passengers
-        //     .OfType<Traveller>()
-        //     .OrderBy(t => t.BirthDate)
-        //     .Take(3)
-        //     .ToList();
+        // var query = from t in flight.Passengers.OfType<Traveller>()
+        //             orderby t.BirthDate
+        //             select t;
+        // return query.Take(3).ToList();
+        //**************************
 
-        // METHODE 2
-        var query = from t in flight.Passengers.OfType<Traveller>()
-                    orderby t.BirthDate
-                    select t;
-
-        return query.Take(3).ToList();
+        return flight.Passengers
+            .OfType<Traveller>()
+            .OrderBy(t => t.BirthDate)
+            .Take(3)
+            .ToList();
     }
 
     public void DestinationGroupedFlights()
     {
-        var query = from flight in Flights
-                    group flight by flight.Destination into destinationGroup
-                    orderby destinationGroup.Key
-                    select destinationGroup;
+        // var query = from flight in Flights
+        //             group flight by flight.Destination into destinationGroup
+        //             orderby destinationGroup.Key
+        //             select destinationGroup;
+        // foreach (var dGroup in query)
+        // {
+        //     Console.WriteLine($"Destination {dGroup.Key}");
+        //     var orderedFlights = from f in dGroup
+        //                          orderby f.FlightDate
+        //                          select f;
+        //     foreach (var flight in orderedFlights)
+        //     {
+        //         Console.WriteLine($"Décollage : {flight.FlightDate:dd/MM/yyyy HH:mm:ss}");
+        //     }
+        // }
+        //**************************
 
-        foreach (var dGroup in query)
+        var groups = Flights
+            .GroupBy(f => f.Destination)
+            .OrderBy(g => g.Key);
+
+        foreach (var dGroup in groups)
         {
             Console.WriteLine($"Destination {dGroup.Key}");
 
-            var orderedFlights = from f in dGroup
-                                orderby f.FlightDate
-                                select f;
-
-            foreach (var flight in orderedFlights)
+            foreach (var flight in dGroup.OrderBy(f => f.FlightDate))
             {
                 Console.WriteLine($"Décollage : {flight.FlightDate:dd/MM/yyyy HH:mm:ss}");
             }
