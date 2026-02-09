@@ -127,17 +127,22 @@ public class FlightMethods : IFlightMethods
 
     public void DestinationGroupedFlights()
     {
-        IEnumerable<IGrouping<string, Flight>> groups = Flights
-            .GroupBy(f => f.Destination)
-            .OrderBy(g => g.Key);
+        var query = from flight in Flights
+                    group flight by flight.Destination into destinationGroup
+                    orderby destinationGroup.Key
+                    select destinationGroup;
 
-        foreach (IGrouping<string, Flight> group in groups)
+        foreach (var dGroup in query)
         {
-            Console.WriteLine($"Destination {group.Key}");
+            Console.WriteLine($"Destination {dGroup.Key}");
 
-            foreach (Flight flight in group.OrderBy(f => f.FlightDate))
+            var orderedFlights = from f in dGroup
+                                orderby f.FlightDate
+                                select f;
+
+            foreach (var flight in orderedFlights)
             {
-                Console.WriteLine($"Décollage : {flight.FlightDate:dd/MM/yyyy HH : mm : ss}");
+                Console.WriteLine($"Décollage : {flight.FlightDate:dd/MM/yyyy HH:mm:ss}");
             }
         }
     }
