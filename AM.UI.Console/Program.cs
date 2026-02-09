@@ -138,3 +138,16 @@ Console.WriteLine("\n######################################");
 Console.WriteLine("\n--- DestinationGroupedFlights() ---");
 flightService.DestinationGroupedFlights();
 
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n-----------------------");
+Passenger passengerUpper = new Passenger
+{
+	FirstName = "karim",
+	LastName = "feki"
+};
+Console.WriteLine($"{passengerUpper.FirstName} {passengerUpper.LastName}");
+Console.WriteLine("-----------------------");
+Console.WriteLine("\n--- UpperFullName ---");
+passengerUpper.UpperFullName();
+Console.WriteLine($"{passengerUpper.FirstName} {passengerUpper.LastName}");
+Console.WriteLine("-----------------------");
