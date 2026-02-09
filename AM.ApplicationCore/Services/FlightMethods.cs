@@ -96,16 +96,20 @@ public class FlightMethods : IFlightMethods
 
     public double DurationAverage(string destination)
     {
-        return Flights
-            .Where(f => string.Equals(f.Destination, destination, StringComparison.OrdinalIgnoreCase))
-            .Select(f => f.EstimatedDuration)
-            .DefaultIfEmpty(0)
-            .Average();
+        var query = from f in Flights
+                    where string.Equals(f.Destination, destination, StringComparison.OrdinalIgnoreCase)
+                    select f.EstimatedDuration;
+
+        return query.DefaultIfEmpty(0).Average();
     }
 
     public IEnumerable<Flight> OrderedDurationFlights()
     {
-        return Flights.OrderByDescending(f => f.EstimatedDuration);
+        var query = from f in Flights
+                    orderby f.EstimatedDuration descending
+                    select f;
+
+        return query;
     }
 
     public List<Traveller> SeniorTravellers(Flight flight)
