@@ -81,9 +81,11 @@ public class FlightMethods : IFlightMethods
 
     public int ProgrammedFlightNumber(DateTime startDate)
     {
-        DateTime endDate = startDate.AddDays(7);
+        var query = from f in Flights
+                    where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
+                    select f;
 
-        return Flights.Count(f => f.FlightDate >= startDate && f.FlightDate < endDate);
+        return query.Count();
     }
 
     public double DurationAverage(string destination)
