@@ -103,3 +103,38 @@ Console.WriteLine("\n######################################");
 Console.WriteLine("\n--- GetFlights() ---");
 flightService.GetFlights("EstimatedDuration", "110");
 
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n############ Partie 3 ###############");
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- ShowFlightDetails(Plane) ---");
+Plane planeForDetails = TestData.planes.First(p => p.PlaneType == PlaneType.Airbus);
+flightService.ShowFlightDetails(planeForDetails);
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- ProgrammedFlightNumber(startDate) ---");
+int countWeek = flightService.ProgrammedFlightNumber(new DateTime(2022, 1, 1));
+Console.WriteLine(countWeek);
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- DurationAverage(Paris) ---");
+Console.WriteLine(flightService.DurationAverage("Paris"));
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- OrderedDurationFlights() ---");
+foreach (Flight f in flightService.OrderedDurationFlights())
+{
+	Console.WriteLine(f);
+}
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- SeniorTravellers(flight) ---");
+Flight flightWithTravellers = flightService.Flights.First();
+foreach (Traveller traveller in flightService.SeniorTravellers(flightWithTravellers))
+{
+	Console.WriteLine(traveller);
+}
+
+Console.WriteLine("\n######################################");
+Console.WriteLine("\n--- DestinationGroupedFlights() ---");
+flightService.DestinationGroupedFlights();
+

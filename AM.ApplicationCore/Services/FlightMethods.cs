@@ -2,7 +2,6 @@ using System.Globalization;
 using System.Reflection;
 using AM.ApplicationCore.Domain;
 using AM.ApplicationCore.Interfaces;
-
 namespace AM.ApplicationCore.Services;
 
 public class FlightMethods : IFlightMethods
@@ -11,18 +10,10 @@ public class FlightMethods : IFlightMethods
 
     public List<DateTime> GetFlightDates(string destination)
     {
-        List<DateTime> dates = new();
-
-        for (int i = 0; i < Flights.Count; i++)
-        {
-            Flight flight = Flights[i];
-            if (string.Equals(flight.Destination, destination, StringComparison.OrdinalIgnoreCase))
-            {
-                dates.Add(flight.FlightDate);
-            }
-        }
-
-        return dates;
+        return Flights
+            .Where(f => string.Equals(f.Destination, destination, StringComparison.OrdinalIgnoreCase))
+            .Select(f => f.FlightDate)
+            .ToList();
     }
 
     public List<DateTime> GetFlightDatesForeach(string destination)
@@ -76,6 +67,63 @@ public class FlightMethods : IFlightMethods
         }
 
         return result;
+    }
+
+    public void ShowFlightDetails(Plane plane)
+    {
+        IEnumerable<Flight> flights = Flights.Where(f => f.Plane == plane);
+
+        foreach (Flight flight in flights)
+        {
+            Console.WriteLine($"{flight.FlightDate:dd/MM/yyyy HH:mm:ss} - {flight.Destination}");
+        }
+    }
+
+    public int ProgrammedFlightNumber(DateTime startDate)
+    {
+        DateTime endDate = startDate.AddDays(7);
+
+        return Flights.Count(f => f.FlightDate >= startDate && f.FlightDate < endDate);
+    }
+
+    public double DurationAverage(string destination)
+    {
+        return Flights
+            .Where(f => string.Equals(f.Destination, destination, StringComparison.OrdinalIgnoreCase))
+            .Select(f => f.EstimatedDuration)
+            .DefaultIfEmpty(0)
+            .Average();
+    }
+
+    public IEnumerable<Flight> OrderedDurationFlights()
+    {
+        return Flights.OrderByDescending(f => f.EstimatedDuration);
+    }
+
+    public List<Traveller> SeniorTravellers(Flight flight)
+    {
+        return flight.Passengers
+            .OfType<Traveller>()
+            .OrderBy(t => t.BirthDate)
+            .Take(3)
+            .ToList();
+    }
+
+    public void DestinationGroupedFlights()
+    {
+        IEnumerable<IGrouping<string, Flight>> groups = Flights
+            .GroupBy(f => f.Destination)
+            .OrderBy(g => g.Key);
+
+        foreach (IGrouping<string, Flight> group in groups)
+        {
+            Console.WriteLine($"Destination {group.Key}");
+
+            foreach (Flight flight in group.OrderBy(f => f.FlightDate))
+            {
+                Console.WriteLine($"Décollage : {flight.FlightDate:dd/MM/yyyy HH : mm : ss}");
+            }
+        }
     }
 
     private static object? ConvertStringTo(Type targetType, string value)
