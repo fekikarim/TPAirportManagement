@@ -110,6 +110,14 @@ public class FlightMethods : IFlightMethods
 
     public List<Traveller> SeniorTravellers(Flight flight)
     {
+        // METHODE 1
+        // return flight.Passengers
+        //     .OfType<Traveller>()
+        //     .OrderBy(t => t.BirthDate)
+        //     .Take(3)
+        //     .ToList();
+
+        // METHODE 2
         var query = from t in flight.Passengers.OfType<Traveller>()
                     orderby t.BirthDate
                     select t;
