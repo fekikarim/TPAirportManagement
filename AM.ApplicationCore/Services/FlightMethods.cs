@@ -79,6 +79,7 @@ public class FlightMethods : IFlightMethods
         }
     }
 
+    //* 3
     public int ProgrammedFlightNumber(DateTime startDate)
     {
         // var query = from f in Flights
@@ -91,6 +92,7 @@ public class FlightMethods : IFlightMethods
         && f.FlightDate < startDate.AddDays(7));
     }
 
+    //* 4
     public double DurationAverage(string destination)
     {
         // var query = from f in Flights
@@ -106,6 +108,7 @@ public class FlightMethods : IFlightMethods
             .Average();
     }
 
+    //* 5
     public IEnumerable<Flight> OrderedDurationFlights()
     {
         // var query = from f in Flights
@@ -117,6 +120,7 @@ public class FlightMethods : IFlightMethods
         return Flights.OrderByDescending(f => f.EstimatedDuration);
     }
 
+    //* 6
     public List<Traveller> SeniorTravellers(Flight flight)
     {
         // var query = from t in flight.Passengers.OfType<Traveller>()
@@ -132,6 +136,7 @@ public class FlightMethods : IFlightMethods
             .ToList();
     }
 
+    //* 7
     public void DestinationGroupedFlights()
     {
         // var query = from flight in Flights

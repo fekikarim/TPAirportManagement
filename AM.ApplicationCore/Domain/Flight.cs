@@ -8,6 +8,7 @@ public class Flight
     public int EstimatedDuration { get; set; }
     public DateTime FlightDate { get; set; }
     public int FlightId { get; set; }
+    public string AirlineLogo { get; set; } = string.Empty;
 
     public Plane? Plane { get; set; }
     public ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();

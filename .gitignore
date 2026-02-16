@@ -1,0 +1,29 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDEs
+.vs/
+.vscode/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+
+# EF Core
+**/Migrations/*.db
