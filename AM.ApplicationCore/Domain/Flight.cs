@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace AM.ApplicationCore.Domain;
 
 public class Flight
@@ -10,6 +12,8 @@ public class Flight
     public int FlightId { get; set; }
     public string AirlineLogo { get; set; } = string.Empty;
 
+    [ForeignKey(nameof(Plane))]
+    public int PlaneId { get; set; }
     public Plane? Plane { get; set; }
     public ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();
 
